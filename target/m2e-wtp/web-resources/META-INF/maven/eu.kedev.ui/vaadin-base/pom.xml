@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>eu.kedev.ui</groupId>
+    <artifactId>vaadin-base</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+
+    <properties>
+        <vaadin.version>7.5.10</vaadin.version>
+        <java.version>1.8</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.jacoco.plugin.version>0.7.4.201502262128</maven.jacoco.plugin.version>
+		<maven.surefire.plugin.version>2.19</maven.surefire.plugin.version>
+		<junit.version>4.12</junit.version>
+		<mockito.version>1.9.5</mockito.version>
+		<jackson.version>2.6.3</jackson.version>
+		<typesafe.version>1.2.1</typesafe.version>
+		<hibernate.version>5.0.5.Final</hibernate.version>
+		<guice.version>4.0</guice.version>
+		<poi.version>3.14</poi.version>
+		<guava.version>18.0</guava.version>
+		<json-jackson.version>2.6.3</json-jackson.version>
+		<log4j.version>2.4.1</log4j.version>
+		<servlet-api.version>3.1.0</servlet-api.version>
+		<rx.version>1.1.0</rx.version>
+    </properties>
+
+    <dependencies>
+        <!-- servlet api // provided by tomcat => assumes 8.x was 8.0.33 -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>${servlet-api.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+		<!-- Reactive Extensions -->
+		<dependency>
+			<groupId>io.reactivex</groupId>
+			<artifactId>rxjava</artifactId>
+			<version>${rx.version}</version>
+		</dependency>
+		
+		<!-- unit testing -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<!-- logging -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		
+
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-server</artifactId>
+            <version>${vaadin.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-shared</artifactId>
+            <version>${vaadin.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-themes</artifactId>
+            <version>${vaadin.version}</version>
+        </dependency>
+        <!-- can be used as long as no add-on components or custom widgets are needed -->
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-client-compiled</artifactId>
+            <version>${vaadin.version}</version>
+        </dependency>
+
+        <!-- if you need add-on components or custom widgets -->
+
+        <!-- if you like to use push capabilities (PushUi) -->
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-push</artifactId>
+            <version>${vaadin.version}</version>
+        </dependency>
+
+        <!-- The compiler is needed for compiling add-on components to the application
+             widget set, as described in Chapter 17, Using Vaadin Add-ons. For detailed
+             information regarding the compiler, see Section 13.4, “Compiling a
+             Client-Side Module” -->
+        <!-- <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-client-compiler</artifactId>
+            <version>${vaadin.version}</version>
+        </dependency> -->
+
+        <!-- is required when using the vaadin-client-compiler -->
+        <!-- <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-client</artifactId>
+            <version>${vaadin.version}</version>
+        </dependency> -->
+        <!-- The Vaadin Sass Compiler compiles Sass themes to CSS,
+             as described in Section 8.3, “Syntactically Awesome Stylesheets (Sass)”.
+             It requires the vaadin-themes-7.x.x.jar library, which contains the Sass
+             sources for the built-in themes. The library needs to be included in
+             deployment in development mode to allow on-the-fly compilation of themes,
+             but it is not needed in production deployment, when the themes are compiled
+             before deployment. -->
+        <!-- <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-saas-compiler</artifactId>
+            <version>0.9.13</version>
+        </dependency>-->
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+           
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+        </plugins>
+    </build>
+</project>
