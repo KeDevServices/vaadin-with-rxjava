@@ -54,10 +54,6 @@ public class NaiveButSafeUiObserver implements Observer<String> {
 
 	@Override
 	public void onNext(String notification) {
-		//Of course, here I call UI.getCurrent() multiple times in an obvious boring way
-		//to provoke the possible UIDetachedException. But, if you start subsequent processing
-		//based on a result received from an Observable managed thread, it easily happens 
-		//that you run in the similar problem with apparently better code.
 		ui.access(() -> {
 			targetContainer.addComponent(new Label(notification));
 			ui.push();

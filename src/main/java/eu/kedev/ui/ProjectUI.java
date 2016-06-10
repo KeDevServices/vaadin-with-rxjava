@@ -53,7 +53,7 @@ public class ProjectUI extends UI {
         startNaiveUnsafeSame.addClickListener(clickEvent -> {
         	final ComponentContainer tabContent = createResultTab("Naive, Unsafe, Main Thread");
         	final Subscription subscription = Events
-        		.emittedViaObservableFast(NUMBER_OF_EMITTED_EVENTS)
+        		.emittedViaObservableSlow(NUMBER_OF_EMITTED_EVENTS)
         		.subscribe(new NaiveAndUnsafeUiObserver(tabContent));
         	this.subscriptions.put(tabContent, subscription);
         });
@@ -61,7 +61,7 @@ public class ProjectUI extends UI {
         startNaiveUnsafeOther.addClickListener(clickEvent -> {
         	final ComponentContainer tabContent = createResultTab("Naive, Unsafe, RX Scheduler Thread");
         	final Subscription subscription = Events
-            		.emittedViaObservableFast(NUMBER_OF_EMITTED_EVENTS)
+            		.emittedViaObservableSlow(NUMBER_OF_EMITTED_EVENTS)
             		.subscribeOn(Schedulers.io())
             		.subscribe(new NaiveAndUnsafeUiObserver(tabContent));
         	this.subscriptions.put(tabContent, subscription);
@@ -69,7 +69,7 @@ public class ProjectUI extends UI {
         	
         startNaiveUnsafeMultiple.addClickListener(clickEvent -> {
         	final ComponentContainer tabContent = createResultTab("Naive, Unsafe, Mult. RX Scheduler Threads");
-        	final Subscription subscription = Observable.merge(Events.emittedViaObservableFast(NUMBER_OF_EMITTED_EVENTS)
+        	final Subscription subscription = Observable.merge(Events.emittedViaObservableSlow(NUMBER_OF_EMITTED_EVENTS)
 					.window(10).map(o -> o.subscribeOn(Schedulers.computation())))
 					.subscribeOn(Schedulers.io())
 				.subscribe(new NaiveAndUnsafeUiObserver(tabContent));
@@ -81,7 +81,7 @@ public class ProjectUI extends UI {
         startNaiveButSafeOther.addClickListener(clickEvent -> {
 	    	final ComponentContainer tabContent = createResultTab("Naive, Safe, RX Scheduler Thread");
 	    	final Subscription subscription = Events
-	    		.emittedViaObservableFast(NUMBER_OF_EMITTED_EVENTS)
+	    		.emittedViaObservableSlow(NUMBER_OF_EMITTED_EVENTS)
 	    		.subscribeOn(Schedulers.io())
 	    		.subscribe(new NaiveButSafeUiObserver(tabContent));
 	    	this.subscriptions.put(tabContent, subscription);
@@ -92,7 +92,7 @@ public class ProjectUI extends UI {
         startSafeOther.addClickListener(clickEvent -> {
         	final ComponentContainer tabContent = createResultTab("Safe, RX Scheduler Thread");
         	final Subscription subscription = Events
-    	    		.emittedViaObservableFast(NUMBER_OF_EMITTED_EVENTS)
+    	    		.emittedViaObservableSlow(NUMBER_OF_EMITTED_EVENTS)
     	    		.subscribeOn(Schedulers.io())
     	    		.subscribe(new SafeUiObserver(tabContent));
         	this.subscriptions.put(tabContent, subscription);
