@@ -20,11 +20,8 @@ public class Events {
 	 * 
 	 * Goal: Simulates a long running evaluation (generating intermediate results)
 	 * or reading of a stream of events (e.g., form an external resource).
-	 * 
-	 * The generated notifications are provided via an {@linkplain rx.Observable}  
-	 * and emitted every 10-50 milliseconds.
 	 */
-	public static Observable<String> emittedViaObservableSlow(int numberOfNotifications) {
+	public static Observable<String> emittedViaObservableFast(int numberOfNotifications) {
 		 return Observable.create(new OnSubscribe<String>() {		
 			private Subscriber<? super String> subscriber;
 			
@@ -34,10 +31,8 @@ public class Events {
 						//VERY IMPORTANT! Stops event creation if subscription ends
 						if (subscriber.isUnsubscribed()) break;
 						
-						int sleepTime = rand.nextInt(40) + 10;
 						subscriber.onNext(String.format(
-								"Notification %s: next event in: %s ms", i, sleepTime));
-						Thread.sleep(sleepTime);
+								"Notification %s: next event is emmitted immediately", i));
 					}
 					
 					subscriber.onCompleted();
@@ -63,7 +58,7 @@ public class Events {
 	 * The generated notifications are provided via an {@linkplain rx.Observable}  
 	 * and emitted every 10-50 milliseconds.
 	 */
-	public static Observable<String> emittedViaObservableFast(int numberOfNotifications) {
+	public static Observable<String> emittedViaObservableSlow(int numberOfNotifications) {
 		 return Observable.create(new OnSubscribe<String>() {		
 			private Subscriber<? super String> subscriber;
 			
@@ -73,8 +68,10 @@ public class Events {
 						//VERY IMPORTANT! Stops event creation if subscription ends
 						if (subscriber.isUnsubscribed()) break;
 						
+						int sleepTime = rand.nextInt(40) + 10;
 						subscriber.onNext(String.format(
-								"Notification %s: next event is emmitted immediately", i));
+								"Notification %s: next event in: %s ms", i, sleepTime));
+						Thread.sleep(sleepTime);
 					}
 					
 					subscriber.onCompleted();

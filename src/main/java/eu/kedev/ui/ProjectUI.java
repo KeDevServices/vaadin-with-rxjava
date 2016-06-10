@@ -24,8 +24,8 @@ import rx.schedulers.Schedulers;
 /**
  * @author Joachim Klein, jk(at)kedev.eu
  */
-@Push(PushMode.MANUAL) //you need to call ui.push()
 @Theme("valo")
+@Push(PushMode.MANUAL) //you need to call ui.push() by yourself
 public class ProjectUI extends UI {
 
 	private static final long serialVersionUID = 1L;
@@ -35,7 +35,7 @@ public class ProjectUI extends UI {
     private final TabSheet tabSheet = new TabSheet();
     private final Map<ComponentContainer, Subscription> subscriptions = new HashMap<>();
     
-    private final Button startNaiveUnsafeSame = new Button("Emit notifications naive and usafe (Main Thread)");
+    private final Button startNaiveUnsafeSame = new Button("Emit notifications naive and unsafe (Main Thread)");
     private final Button startNaiveUnsafeOther = new Button("Emit notifications naive and unsafe (RX Scheduler Thread)");
     private final Button startNaiveUnsafeMultiple = new Button ("Emit notifications naive and unsafe (multiple RX Scheduler Threads)"); 
     
@@ -45,7 +45,8 @@ public class ProjectUI extends UI {
 
     @Override
     protected void init(final VaadinRequest vaadinRequest) {
-       
+       view.setSpacing(true);
+    	
         //Naive and unsafe
         view.addComponents(startNaiveUnsafeSame, startNaiveUnsafeOther, startNaiveUnsafeMultiple);
         startNaiveUnsafeSame.addClickListener(clickEvent -> {

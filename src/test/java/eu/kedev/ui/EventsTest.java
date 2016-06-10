@@ -14,8 +14,8 @@ public class EventsTest {
 	private static final Logger logger = LoggerFactory.getLogger(EventsTest.class);
 	private static final int NUMBER_OF_NOTIFICATIONS = 5;
 
-	@Test(timeout=(NUMBER_OF_NOTIFICATIONS*50 +20)) /* e.g., 5 notifications must 
-		be emitted in at least 250ms (+20ms for the test itself) */
+	@Test(timeout=(NUMBER_OF_NOTIFICATIONS*50 +100)) /* e.g., 5 notifications must 
+		be emitted in at least 250ms (+100ms for the test itself) */
 	public void testEmittedViaObservableSlow5Notifications() {
 		assertEquals(NUMBER_OF_NOTIFICATIONS, 
 				logAndCount(Events.emittedViaObservableSlow(NUMBER_OF_NOTIFICATIONS)));
