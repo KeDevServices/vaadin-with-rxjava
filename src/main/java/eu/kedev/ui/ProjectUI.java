@@ -45,7 +45,8 @@ public class ProjectUI extends UI {
 
     @Override
     protected void init(final VaadinRequest vaadinRequest) {
-       view.setSpacing(true);
+    	view.setSpacing(true);
+    	view.setMargin(true);
     	
         //Naive and unsafe
         view.addComponents(startNaiveUnsafeSame, startNaiveUnsafeOther, startNaiveUnsafeMultiple);
